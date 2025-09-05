@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>AJAX JSON 示例</title>
+</head>
+<body>
+
+<h2>AJAX 获取 JSON 对象示例</h2>
+<button onclick="loadObject()">获取对象数据</button>
+<p id="objDemo">这里会显示对象数据</p>
+
+<h2>AJAX 获取 JSON 数组示例</h2>
+<button onclick="loadArray()">获取数组数据</button>
+<p id="arrDemo">这里会显示数组数据</p>
+
+<script>
+// 获取 JSON 对象
+function loadObject() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if(this.readyState === 4 && this.status === 200) {
+            var myObj = JSON.parse(this.responseText); // 解析 JSON
+            document.getElementById("objDemo").innerHTML =
+                "网站名：" + myObj.name + 
+                ", Alexa 排名：" + myObj.alexa +
+                ", 地址：" + myObj.site;
+        }
+    };
+    xhttp.open("GET", "json_demo.txt", true); // json_demo.txt 是对象数据
+    xhttp.send();
+}
+
+// 获取 JSON 数组
+function loadArray() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if(this.readyState === 4 && this.status === 200) {
+            var myArr = JSON.parse(this.responseText); // 解析 JSON
+            document.getElementById("arrDemo").innerHTML =
+                "数组数据：" + myArr.join(", "); // 把数组元素用逗号连接显示
+        }
+    };
+    xhttp.open("GET", "json_demo_array.txt", true); // json_demo_array.txt 是数组数据
+    xhttp.send();
+}
+</script>
+
+</body>
+</html>
